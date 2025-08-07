@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopZone - Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #2A80B9 0%, #1B3F72 100%);
+      color: #fff;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #CFE5FC;
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .filters {
+      margin-bottom: 20px;
+    }
+    .filters select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.15);
+      padding: 16px;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s;
+      text-align: center;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .product-desc {
+      font-size: 14px;
+      color: #E0EAFC;
+      margin-bottom: 8px;
+    }
+    .product-price {
+      font-size: 16px;
+      color: #A2F5FF;
+      font-weight: bold;
+    }
+    .rating {
+      color: #FFD700;
+      margin-bottom: 8px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: #48aaff;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: none;
+    }
+    .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+    .modal-content img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .modal-content h3 {
+      margin-bottom: 10px;
+    }
+    .modal-content .product-price {
+      color: #2A80B9;
+    }
+    .modal-content button {
+      background-color: #2A80B9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ShopZone</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Orders</a>
+      <a href="#">Cart</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="main-content">
+    <h2>Available Products</h2>
+    <div class="products" id="productContainer">
+      <!-- JS will inject products here -->
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 ShopZone. All rights reserved.
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <img id="modalImg" src="" alt="">
+      <h3 id="modalTitle"></h3>
+      <p class="rating">⭐⭐⭐⭐☆ (4.0)</p>
+      <p id="modalDesc"></p>
+      <p class="product-price" id="modalPrice"></p>
+      <button onclick="alert('Added to Cart')">Add to Cart</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const products = [
+      {
+        title: 'Wireless Headphones',
+        desc: 'High-quality sound with noise cancellation.',
+        price: '₹3,499',
+        img: 'https://m.media-amazon.com/images/I/517lSvEVVsL.jpg'
+      },
+      {
+        title: 'Smart Watch',
+        desc: 'Track your health and stay connected.',
+        price: '₹5,999',
+        img: 'https://www.gonoise.com/cdn/shop/files/1_64a47a47-00f7-4e58-ac9f-8544e664bf77.png?v=1752669445'
+      },
+      {
+        title: 'Bluetooth Speaker',
+        desc: 'Portable speaker with deep bass.',
+        price: '₹1,899',
+        img: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQM9Xx3baWxBm2O-FARfr8sinrdQTr-kj9xPijAeZNv76TeqRV569q4_RVjvJ7dyOkZUS4FFQy6UgG8q7YPpxaJrSGYMW4UdYHkXOAkL6XsDQkdm1iiX0MmIA'
+      },
+      {
+        title: 'LED Desk Lamp',
+        desc: 'Adjustable brightness with sleek design.',
+        price: '₹1,299',
+        img: 'https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=400&q=80'
+      },
+      {
+        title: 'USB-C Charger',
+        desc: 'Fast charging compatible with all devices.',
+        price: '₹799',
+        img: 'https://m.media-amazon.com/images/I/51eFYHPB4YL.jpg'
+      },
+      {
+        title: 'Laptop Stand',
+        desc: 'Ergonomic aluminum adjustable stand.',
+        price: '₹1,199',
+        img: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRPvhjZlTRECYxM8Ik5aiezn1Wlr5ohoZRmeZCgqBAGbF1Rdu0DXyXrenEAw-EPv7jN_aEnIalde6UsiQ7tJ09hvWw34QlhNqvjZfshVvYy'
+      },
+      {
+        title: 'Gaming Mouse',
+        desc: 'RGB lights with high-precision sensor.',
+        price: '₹2,499',
+        img: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSvBQ049KzxiabLQ07fGP_gko8JolTsnqwyWJZnXiBLuNaSMCDPDDB_v7nZ7nNQ8vNNxEwGfqw8GcSZeEPW9POJ6TsfpP7QgYP3z8VT-r2K'
+      },
+      {
+        title: 'Keyboard',
+        desc: 'Mechanical keyboard with backlight.',
+        price: '₹2,199',
+        img: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRyI3mU7OEBfByk45he56TQNfkhlEfbbVab28d6stCs8V3MNkhNOhxMquFzK6yQnYzssOKMFuN_2NgYN9-plt8pZ27EN0WPmtgDc8UZi84coC04dTx43xqS'
+      },
+      {
+        title: 'Phone Holder',
+        desc: 'Flexible holder for desk or car use.',
+        price: '₹499',
+        img: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQKMv03b4IBkmzEL96nNl2vhvXXzBmllCK1gJgtqJbgDYNShB4zhcJMt_Et6pEfn7xDa-l5z893WLoFwHu0Djv89ScE_eIVlrI2mo69kaRK0gcycj-TRitPQw'
+      },
+      {
+        title: 'Fitness Band',
+        desc: 'Monitor your activity 24/7.',
+        price: '₹2,799',
+        img: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR6zXO-B1OOxDvN_bs6mKDXYQmt6BEbONgfL7VUx7phnuhip8CQj5jn7gc4ATFphrD6uMPLGVGKckY1RYoxaDjIwTGEqkSEAMZJm2QgFTuYiT8Cq-C09Jwy-g'
+      },
+      {
+        title: 'Wi-Fi Router',
+        desc: 'Dual-band router for fast streaming.',
+        price: '₹3,099',
+        img: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTwJooJHvJB7KyqeDHx0Vn0ec-zxz39M-XdpoRUYxFfgE5jUBjF69WuUZtZPt5fyDUX29jqAIVQS8RLeF7Pxcqx25Fj-fa-DY_Rc1ehb89laR-KqzwZeQuPd2U'
+      },
+      {
+        title: 'Portable Hard Drive',
+        desc: '1TB external hard drive.',
+        price: '₹4,599',
+        img: 'https://m.media-amazon.com/images/I/61PxgtzwjtL.jpg'
+      },
+      {
+        title: 'Ring Light',
+        desc: 'Perfect for videos and selfies.',
+        price: '₹1,099',
+        img: 'https://5.imimg.com/data5/SELLER/Default/2022/11/CO/NR/PF/114542219/rechargeable-selfie-ring-light-500x500.jpg'
+      },
+      {
+        title: 'Smart Plug',
+        desc: 'Control your devices remotely.',
+        price: '₹1,499',
+        img: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS1I4T_muS0BWkoemTPZV47JamlM63xgOY9ke6xrHOknIVGOpztKa23DXGb5rqynQcMFfv6lLP1-ty-PStHX1qFakQ1ISAFn5DjQBk6h7E7Kv8xennNvNNf'
+      },
+      {
+        title: 'Wireless Charger',
+        desc: 'Fast charge your phone wirelessly.',
+        price: '₹1,699',
+        img: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSdfNui6j_9GQB6zndmUuzyo8d_WDaLJZs24U1G_rpNiYUkNMLFCOTGzXL2TGWynOwoKimXVgRXXl-dxMNsqZd9VQUvMf4X-uKNYgmqZI6PppKtgazfV0hpDV7u'
+      }
+    ];
+
+    const container = document.getElementById('productContainer');
+    const modal = document.getElementById('productModal');
+
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.title}">
+        <div class="product-title">${p.title}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-price">${p.price}</div>
+      `;
+      card.onclick = () => openModal(p);
+      container.appendChild(card);
+    });
+
+    function openModal(product) {
+      document.getElementById('modalImg').src = product.img;
+      document.getElementById('modalTitle').textContent = product.title;
+      document.getElementById('modalDesc').textContent = product.desc;
+      document.getElementById('modalPrice').textContent = product.price;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
