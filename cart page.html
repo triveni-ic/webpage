@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopZone - Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #2A80B9 0%, #1B3F72 100%);
+      color: #fff;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #CFE5FC;
+    }
+    .user-menu {
+      display: flex;
+      align-items: center;
+    }
+    .user-menu i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .cart-table {
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 16px;
+      text-align: left;
+    }
+    th {
+      background: rgba(255,255,255,0.1);
+      color: #CFE5FC;
+      font-weight: 600;
+    }
+    td {
+      color: #E0EAFC;
+      vertical-align: middle;
+    }
+    tr:nth-child(even) {
+      background: rgba(255,255,255,0.05);
+    }
+    .product-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .product-info img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart-total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #A2F5FF;
+    }
+    .checkout-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 24px;
+      background-color: #1E90FF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .checkout-btn:hover {
+      background-color: #63b3ed;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: #CFDFFF;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ShopZone</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Orders</a>
+      <a href="#">Cart</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="user-menu">
+      <i class="fas fa-user-circle"></i>
+      <a href="#">My Orders</a>
+    </div>
+  </header>
+  <div class="main-content">
+    <h2>Your Shopping Cart</h2>
+    <div class="cart-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTRPbpvIp2PKFPCMljs3C1ofu9nGm1m8LrKGEd-vhLzOEjC4-6oUyQxhAAgBdQOlW9J8CQ2WagvATffdqrqNIpoFIIdcfPI_PkMBROJnVYuoYCB9S8h059Te8k" alt="Wireless Headphones" />
+                <span>Wireless Headphones</span>
+              </div>
+            </td>
+            <td>₹3,499</td>
+            <td>1</td>
+            <td>₹3,499</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="https://www.gonoise.com/cdn/shop/files/1_64a47a47-00f7-4e58-ac9f-8544e664bf77.png?v=1752669445" alt="Smart Watch" />
+                <span>Smart Watch</span>
+              </div>
+            </td>
+            <td>₹5,999</td>
+            <td>1</td>
+            <td>₹5,999</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-info">
+                <img src="https://m.media-amazon.com/images/I/51eFYHPB4YL.jpg" alt="USB-C Charger" />
+                <span>USB-C Charger</span>
+              </div>
+            </td>
+            <td>₹799</td>
+            <td>2</td>
+            <td>₹1,598</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cart-total">
+      Total: ₹11,096<br/>
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 ShopZone. All rights reserved.
+  </footer>
+</body>
+</html>
