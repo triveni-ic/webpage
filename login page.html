@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Background gradient layer */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #2a80b9 0%, #1b3f72 100%);
+      z-index: 0;
+    }
+
+    /* Blur overlay layer */
+    .background-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 1;
+    }
+
+    /* Center container */
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      max-width: 380px;
+      width: 100%;
+      padding: 48px 32px 38px;
+      box-shadow: 0 8px 30px rgba(41, 56, 116, 0.23),
+                  0 5px 22px rgba(22, 129, 193, 0.26);
+      border: 1.5px solid #cfe5fc;
+      transition: box-shadow 0.34s;
+      overflow: visible;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .container:hover {
+      box-shadow: 0 12px 40px 0 rgba(41, 56, 116, 0.29),
+                  0 10px 32px 0 rgba(22, 129, 193, 0.17);
+    }
+
+    h2 {
+      color: #2a80b9;
+      font-weight: 700;
+      font-size: 29px;
+      margin-bottom: 35px;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-shadow: 0 2px 6px #dde9fa44;
+    }
+
+    .input-group {
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      background: #f2f8ff;
+      border-radius: 9px;
+      padding: 2px 10px;
+      border: 1.6px solid #e4ecfa;
+      transition: border-color 0.3s;
+    }
+
+    .input-group:focus-within {
+      border-color: #1fb6ff;
+      box-shadow: 0 0 6px #2a80b930;
+    }
+
+    .icon {
+      margin-right: 8px;
+      color: #1b3f72;
+      font-size: 19px;
+      opacity: 0.85;
+    }
+
+    .input-group input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 17px;
+      padding: 13px 6px;
+      color: #145397;
+      transition: color 0.22s;
+    }
+
+    .input-group input:focus {
+      color: #2a80b9;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(90deg, #2a80b9 65%, #1fb6ff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 15px 0;
+      font-weight: 700;
+      font-size: 17px;
+      cursor: pointer;
+      margin-top: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s, box-shadow 0.44s;
+      box-shadow: 0 3px 15px rgba(27, 63, 114, 0.13);
+    }
+
+    .btn:after {
+      content: "";
+      position: absolute;
+      left: -50%;
+      top: 0;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(105deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.02) 70%);
+      transform: skewX(-20deg);
+      transition: left 0.6s cubic-bezier(.23, 1.43, .74, .97);
+      pointer-events: none;
+    }
+
+    .btn:hover {
+      background: linear-gradient(94deg, #187ad0 60%, #61d7ff 100%);
+    }
+
+    .btn:hover:after {
+      left: 100%;
+    }
+
+    .register-text {
+      margin-top: 22px;
+      font-size: 15px;
+      text-align: center;
+      color: #15589f;
+      letter-spacing: 0.02em;
+    }
+
+    .register-btn {
+      background: transparent;
+      border: none;
+      color: #1fb6ff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0 0 0 6px;
+      transition: color 0.18s;
+      letter-spacing: 0.02em;
+    }
+
+    .register-btn:hover {
+      color: #2a80b9;
+      text-decoration: none;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <div class="background"></div>
+  <div class="background-blur"></div>
+  <div class="container">
+    <form class="login-form" action="#" method="POST" autocomplete="on">
+      <h2>Welcome Back</h2>
+      <div class="input-group">
+        <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+        <input type="email" id="email" placeholder="Email" autocomplete="email" required />
+      </div>
+      <div class="input-group">
+        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+        <input type="password" id="password" placeholder="Password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn login-btn">Login</button>
+      <p class="register-text">
+        Don't have an account?
+        <button type="button" class="register-btn">Register</button>
+      </p>
+    </form>
+  </div>
+</body>
+</html>
